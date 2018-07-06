@@ -1,3 +1,18 @@
+importScripts('https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/5.2.0/firebase-messaging.js');
+
+var isFirebase = true || "fasle";
+
+var config = {
+    apiKey: "AIzaSyCLQ_OuvTKdWvqEFz2lr0Or3hkuuElJFTY" ,
+    authDomain:"testprojegor.firebaseapp.com",
+    databaseURL: "https://testprojegor.firebaseio.com",
+    projectId: "testprojegor",
+    storageBucket: "testprojegor.appspot.com",
+    messagingSenderId: "1097077474911" 
+};
+firebase.initializeApp(config);
+
 self.addEventListener('install', function(event) {
     console.log("Install service worker script");
 });
@@ -6,10 +21,26 @@ self.addEventListener('fetch', function(event) {
     console.log("Fetch service worker script");
 });
 
+const messaging = firebase.messaging();
+
+messaging.setBackgroundMessageHandler(
+    function (payload) {
+        console.log("On message: ", payload);
+        var title = payload.data.title;
+        var notificationOptions = {
+            body: payload.data.message,
+            icon: payload.data.icon,
+            click_action: payload.data.action
+        };
+        return self.registration.showNotification(title, options);
+    }
+);
+
+
+if (!isFirebase) {
 self.addEventListener('push', function(event) {
     // console.log('Push-notification has been received');
     // console.log(event);
-
     event.waitUntil(
         self.registration.pushManager.getSubscription().then(function(subscription) {
             var provider = ""
@@ -19,13 +50,13 @@ self.addEventListener('push', function(event) {
                     provider = browser.name;
                 }
             }
-            fetch(getAKServerPushContentGetSubscriptionLink(), {
+            return fetch(getAKServerPushContentGetSubscriptionLink(), {
                 method: 'post',
                 credentials: 'include',
                 body: JSON.stringify({
                     'provider': provider,
                     'endpoint': subscription.endpoint,
-                    'resource_token': "8b4tSiU2kqU-1e0ac6c78e3a3589",
+                    'resource_token': "i7UodZgh3fL-c99861b55eb332f1",
                 })
             })
             .then(function(response) {
@@ -62,7 +93,8 @@ self.addEventListener('push', function(event) {
             })
         })
     );
-});
+  });
+}
 
 self.addEventListener('notificationclick', function(event) {
     // console.log('User has clicked in the notification');
