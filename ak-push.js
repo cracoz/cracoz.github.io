@@ -150,7 +150,7 @@ var AKPush = function(akPushConfig) {
             browser = {
                 name: "Vivaldi",
                 vivaldi: true,
-                version: that.detectBrowserVersion(userAgent, /vivaldi\/(\d+(\.\d+)?)/i) || commonVersion
+                version: that.detectB_initSubscriptionrowserVersion(userAgent, /vivaldi\/(\d+(\.\d+)?)/i) || commonVersion
             };
         } else if(isSailfish) {
             browser = {
@@ -634,13 +634,13 @@ var AKPush = function(akPushConfig) {
         } else {
             console.error("The browser is not supported")
     }
-
+};
     // Use this!
-    this.initSubscription = function(match, update, customData) {
+    this.initSubscription = function (match, update, customData) {
         if (document.readyState === 'complete' || document.readyState === 'interactive') {
             that._initSubscription(match, update, customData);
         } else {
-            window.addEventListener('load', function() {
+            window.addEventListener('load', function () {
                 akPush._initSubscription(match, update, customData);
             });
         }
@@ -652,7 +652,6 @@ var AKPush = function(akPushConfig) {
             this.Provider = browser.name;
         }
     }
- };
 };
 
 // Usage
