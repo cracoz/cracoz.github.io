@@ -350,10 +350,10 @@ var AKPush = function(akPushConfig) {
     }
 
     this.sendSubscriptionToServerForSave = function(subscription, match, update, customData) {
-       let provider = "";
-        if (that.akPushConfig.IsFireBase) {
+     	let provider = "";
+        if (that.akPushConfig.IsWebFirebase) {
             provider = that.Provider + "Firebase";
-  }
+	}
         fetch(that._getAKServerSaveSubscriptionLink(), {
             method: 'post',
             credentials: 'include',
@@ -364,7 +364,7 @@ var AKPush = function(akPushConfig) {
                 'match': JSON.stringify(match || {}),
                 'update': JSON.stringify(update || {}),
             })),
-        })
+        });
     };
 
     this.sendSubscriptionToServerForDelete = function(subscription, match, update, customData) {
@@ -378,7 +378,7 @@ var AKPush = function(akPushConfig) {
                 'match': JSON.stringify(match || {}),
                 'update': JSON.stringify(update || {}),
             })),
-        })
+        });
     };
 
     this.setCookieOnly = function(callback) {
