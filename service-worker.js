@@ -1,18 +1,3 @@
-importScripts('https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/5.2.0/firebase-messaging.js');
-
-var isFirebase = true || "fasle";
-
-var config = {
-    apiKey: "AIzaSyCLQ_OuvTKdWvqEFz2lr0Or3hkuuElJFTY" ,
-    authDomain:"testprojegor.firebaseapp.com",
-    databaseURL: "https://testprojegor.firebaseio.com",
-    projectId: "testprojegor",
-    storageBucket: "testprojegor.appspot.com",
-    messagingSenderId: "1097077474911" 
-};
-firebase.initializeApp(config);
-
 self.addEventListener('install', function(event) {
     console.log("Install service worker script");
 });
@@ -21,23 +6,6 @@ self.addEventListener('fetch', function(event) {
     console.log("Fetch service worker script");
 });
 
-const messaging = firebase.messaging();
-
-messaging.setBackgroundMessageHandler(
-    function (payload) {
-        console.log("On message: ", payload);
-        var title = payload.data.title;
-        var notificationOptions = {
-            body: payload.data.message,
-            icon: payload.data.icon,
-            click_action: payload.data.action
-        };
-        return self.registration.showNotification(title, options);
-    }
-);
-
-
-if (!isFirebase) {
 self.addEventListener('push', function(event) {
     // console.log('Push-notification has been received');
     // console.log(event);
@@ -93,8 +61,7 @@ self.addEventListener('push', function(event) {
             })
         })
     );
-  });
-}
+});
 
 self.addEventListener('notificationclick', function(event) {
     // console.log('User has clicked in the notification');

@@ -6,18 +6,16 @@
 //     SafariWebsitePushID: 'safari-website-push-id',
 //     ServiceWorkerPath: '/service-worker.js'
 //     IsTest: "false", // string
-//     IsWebFirebase: "false", //string
 // };
 
 var AKPush = function(akPushConfig) {
     this.akPushConfig = akPushConfig || {};
-    this.akPushConfig.ResourceToken = this.akPushConfig.ResourceToken || 'i7UodZgh3fL-c99861b55eb332f1';
+    this.akPushConfig.ResourceToken = this.akPushConfig.ResourceToken || 'i7UodZgh3fL-c99861b55eb332f1'
     this.akPushConfig.ServerHost = this.akPushConfig.ServerHost || 'ssl.egor.local';
     this.akPushConfig.SafariWebsitePushID = this.akPushConfig.SafariWebsitePushID || '';
     this.akPushConfig.ServerApplePushAPI = this.akPushConfig.ServerApplePushAPI || 'https://egor.local/api/v1.1/ap';
     this.akPushConfig.ServiceWorkerPath = this.akPushConfig.ServiceWorkerPath || '/service-worker.js';
     this.akPushConfig.IsTest = this.akPushConfig.IsTest || "false";
-    this.akPushConfig.IsWebFirebase = this.akPushConfig.IsWebFirebase || "true";
 
     this.Provider = "";
 
@@ -150,7 +148,7 @@ var AKPush = function(akPushConfig) {
             browser = {
                 name: "Vivaldi",
                 vivaldi: true,
-                version: that.detectB_initSubscriptionrowserVersion(userAgent, /vivaldi\/(\d+(\.\d+)?)/i) || commonVersion
+                version: that.detectBrowserVersion(userAgent, /vivaldi\/(\d+(\.\d+)?)/i) || commonVersion
             };
         } else if(isSailfish) {
             browser = {
@@ -350,21 +348,17 @@ var AKPush = function(akPushConfig) {
     }
 
     this.sendSubscriptionToServerForSave = function(subscription, match, update, customData) {
-     	let provider = "";
-        if (that.akPushConfig.IsWebFirebase) {
-            provider = that.Provider + "Firebase";
-	}
         fetch(that._getAKServerSaveSubscriptionLink(), {
             method: 'post',
             credentials: 'include',
             body: JSON.stringify(Object.assign({}, customData || {}, {
-                'provider': provider || that.Provider,
+                'provider': that.Provider,
                 'endpoint': subscription.endpoint,
                 'resource_token': that.akPushConfig.ResourceToken,
                 'match': JSON.stringify(match || {}),
                 'update': JSON.stringify(update || {}),
             })),
-        });
+        })
     };
 
     this.sendSubscriptionToServerForDelete = function(subscription, match, update, customData) {
@@ -378,7 +372,7 @@ var AKPush = function(akPushConfig) {
                 'match': JSON.stringify(match || {}),
                 'update': JSON.stringify(update || {}),
             })),
-        });
+        })
     };
 
     this.setCookieOnly = function(callback) {
@@ -460,50 +454,6 @@ var AKPush = function(akPushConfig) {
             });
         });
     };
-    
-    // Only for Firefox, Chrome, Opera firebase 
-    this.initialiseFirebasePush = function (match, update, customData) {
-        messaging.requestPermission()
-            .then(
-                function () {
-                    console.log("Have permission.");
-                    return messaging.getToken();
-                }
-            )
-            .then(
-                function (token) {
-                    if (currenToken != token) {
-                        console.log(token);
-                        let subscription = {
-                            endpoint: token
-                        };
-                        that.sendSubscriptionToServerForSave(subscription, match, update, customData);
-                    }
-                    localStorage.setItem("current_token", token);
-                }
-            )
-            .catch(
-                function (err) {
-                    console.log("Error occured.");
-                    console.log(err);
-                }
-            );
-        messaging.onMessage(
-            function (payload) {
-                console.log("On message app: ", payload);
-                var title = payload.notification.title;
-                var notificationOptions = {
-                    body: payload.notification.body,
-                    icon: payload.notification.icon,
-                    click_action: payload.notification.click_action
-                };
-                new Notification(title, notificationOptions);
-            }
-        );
-    };
-    
-    
-    
 
     // Only for Firefox, Chrome and after service worker registration
     this.initialiseState = function(match, update, customData) {
@@ -607,44 +557,30 @@ var AKPush = function(akPushConfig) {
         }
     };
 
-     this._initSubscription = function (match, update, customData) {
+    this._initSubscription = function(match, update, customData) {
         if (that.Provider === "Chrome" || that.Provider === "Firefox") {
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register(that.akPushConfig.ServiceWorkerPath)
-                    .then(function (serviceWorkerRegistration) {
-                        if (that.akPushConfig.IsFireBase) {
-                            messaging.useServiceWorker(serviceWorkerRegistration);
-                            that.initialiseFirebasePush(match, update, customData);
-                        } else {
-                            that.initialiseState(match, update, customData);
-                        }
-                    });
+                .then(function() {
+                    that.initialiseState(match, update, customData);
+                });
             }
-        } else if (that.Provider === "Opera") {
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register(that.akPushConfig.ServiceWorkerPath)
-                    .then(function (serviceWorkerRegistration) {
-                        if (that.akPushConfig.IsFireBase) {
-                            messaging.useServiceWorker(serviceWorkerRegistration);
-                            that.initialiseFirebasePush(match, update, customData);
-                        }
-                    });
-            }
-        } else if (that.Provider === "Safari" || ('safari' in window && 'pushNotification' in window.safari)) {
-            that.setCookieOnly(function (cookie_id) {
+        } else if (that.Provider === "Safari" || ('safari' in window && 'pushNotification' in window.safari) ) {
+            that.setCookieOnly(function(cookie_id) {
                 var permissionData = window.safari.pushNotification.permission(that.akPushConfig.SafariWebsitePushID);
                 that.checkSafariRemotePermission(permissionData, match, update, cookie_id, customData);
             });
         } else {
             console.error("The browser is not supported")
+        }
     }
-};
+
     // Use this!
-    this.initSubscription = function (match, update, customData) {
+    this.initSubscription = function(match, update, customData) {
         if (document.readyState === 'complete' || document.readyState === 'interactive') {
             that._initSubscription(match, update, customData);
         } else {
-            window.addEventListener('load', function () {
+            window.addEventListener('load', function() {
                 akPush._initSubscription(match, update, customData);
             });
         }

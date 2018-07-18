@@ -1,9 +1,5 @@
 Файл ak-push.js необходимо подключить к страницам сайта, на которых планируется показ пользователям предложение подписаться на push-оповещения (тэг <script type="text/javascript" src="путь/к/статическому/файлу/ak-push.js"></script>)
 
-Для использования firebase пушей необходимо подключить на страницах сайта скрипт firebase-messaging.js и firebase-app.js актуальной версии(Пример: 
-<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-messaging.js"></script>)
-
 К файлу service-worker.js необходимо обеспечить доступ через URL https://my-site.com/service-worker.js
 
 Файл manifest.json необходимо подключить к страницам сайта, на которых планируется показ пользователям предложение подписаться на push-оповещения (тэг <link rel="manifest" href="путь/к/статическому/файлу/manifest.json"></link>)
