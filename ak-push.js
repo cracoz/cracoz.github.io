@@ -7,7 +7,7 @@
 // } catch (e) {
 //     // ...
 // }
-//augauigsfigasigfiyasgdiasgdiagsyd
+
 (function(window) {
     var injectedConfig = {
         debug: "true" === "true",
@@ -16,16 +16,16 @@
         apiServerHost: "cookiesaver.egor.wip.altkraft.com:27443",
         swPath: "/service-worker.js",
         firebase: {
-            apiKey: "",
-            projectId: "",
-            messagingSenderId: "",
+            apiKey: "AIzaSyCLQ_OuvTKdWvqEFz2lr0Or3hkuuElJFTY",
+            projectId: "testprojegor",
+            messagingSenderId: "1097077474911",
         },
         browsers: {
             "Chrome": {
-                isFirebase: "false" === "true"
+                isFirebase: "true" === "true"
             },
             "Firefox": {
-                isFirebase: "false" === "true"
+                isFirebase: "true" === "true"
             },
             "Opera": {
                 isFirebase: "false" === "true"
