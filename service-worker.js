@@ -3,7 +3,7 @@
         debug: "true" === "true",
         isTest: "false" === "true",
         resourceToken: "i7UodZgh3fL-c99861b55eb332f1",
-        apiServerHost: "ssl.egor.local",
+        apiServerHost: "cookiesaver.egor.wip.altkraft.com:27443",
         swPath: "/service-worker.js",
         firebase: {
             apiKey: "",
@@ -22,7 +22,7 @@
             },
             "Safari": {
                 websitePushID: "",
-                websitePushAPI: "https://egor.local/api/v1.1/ap",
+                websitePushAPI: "https://egor.wip.altkraft.com/api/v1.1/ap",
             },
         }
     };
