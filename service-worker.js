@@ -143,6 +143,7 @@
                             });
                         });
                     }).catch(function(err) {
+			console.error("URL: ", config.serverURL + config.serverPushContentPath);
                         console.error("Unable to receive data from server", err);
                     })
                 })
