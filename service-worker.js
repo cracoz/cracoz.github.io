@@ -3,7 +3,7 @@
         debug: "true" === "true",
         isTest: "false" === "true",
         resourceToken: "228SYMQZqd2-9ecd53637d12ed4b",
-        apiServerHost: "ssl.egor-bronin.dev.altkraft.com",
+        apiServerHost: "ssl.egor-bronin.dev.altkraft.com/pixel?_push_pix=",
         swPath: "/service-worker.js",
         firebase: {
             apiKey: "",
