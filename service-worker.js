@@ -2,27 +2,27 @@
     var injectedConfig = {
         debug: "true" === "true",
         isTest: "false" === "true",
-        resourceToken: "i7UodZgh3fL-c99861b55eb332f1",
-        apiServerHost: "cookiesaver.egor.wip.altkraft.com:27443",
+        resourceToken: "228SYMQZqd2-9ecd53637d12ed4b",
+        apiServerHost: "ssl.egor-bronin.dev.altkraft.com",
         swPath: "/service-worker.js",
         firebase: {
-            apiKey: "AIzaSyCLQ_OuvTKdWvqEFz2lr0Or3hkuuElJFTY",
-            projectId: "testprojegor",
-            messagingSenderId: "1097077474911",
+            apiKey: "",
+            projectId: "",
+            messagingSenderId: "",
         },
         browsers: {
             "Chrome": {
-                isFirebase: "true" === "true"
+                isFirebase: "false" === "true"
             },
             "Firefox": {
-                isFirebase: "true" === "true"
+                isFirebase: "false" === "true"
             },
             "Opera": {
                 isFirebase: "false" === "true"
             },
             "Safari": {
                 websitePushID: "",
-                websitePushAPI: "https://egor.wip.altkraft.com/api/v1.1/ap",
+                websitePushAPI: "https://egor-bronin.dev.altkraft.com/api/v1.1/ap",
             },
         }
     };

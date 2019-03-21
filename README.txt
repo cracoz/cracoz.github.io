@@ -1,11 +1,17 @@
-Файл ak-push.js необходимо подключить к страницам сайта, на которых планируется показ пользователям предложение подписаться на push-оповещения (тэг <script type="text/javascript" src="путь/к/статическому/файлу/ak-push.js"></script>)
+Для использования firebase пушей необходимо подключить на страницах сайта скрипт
+firebase-messaging.js и firebase-app.js актуальной версии:
 
-Для использования firebase пушей необходимо подключить на страницах сайта скрипт firebase-messaging.js и firebase-app.js актуальной версии(Пример: 
 <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-messaging.js"></script>)
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-messaging.js"></script>
 
-К файлу service-worker.js необходимо обеспечить доступ через URL https://my-site.com/service-worker.js
+Файлы ak-push.js и manifest.json необходимо подключить к страницам сайта, на
+которых планируется показ пользователям предложение подписаться на push-оповещения:
 
-Файл manifest.json необходимо подключить к страницам сайта, на которых планируется показ пользователям предложение подписаться на push-оповещения (тэг <link rel="manifest" href="путь/к/статическому/файлу/manifest.json"></link>)
+<script type="text/javascript" src="/ak-push.js"></script>
+<link rel="manifest" href="/manifest.json"></link>
 
-ВАЖНО! Данный Toolkit необходимо обновлять после каждого редактирования ресурса!
+К файлу service-worker.js необходимо обеспечить доступ через корневую директорию сайта:
+
+https://example.com/service-worker.js
+
+ВАЖНО! Данный Toolkit необходимо обновлять после каждого изменения push-опций ресурса!
