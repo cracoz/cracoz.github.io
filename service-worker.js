@@ -153,6 +153,7 @@
 
     self.addEventListener('notificationclick', function(event) {
         debug("SW Click: ", event)
+        debug("Click URL: ", event.notification.data)
         if (event.notification.tag === 'user_visible_auto_notification' || !event.notification.data) {
             return;
         }
