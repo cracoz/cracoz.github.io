@@ -232,8 +232,8 @@
                         icon: payload.notification.icon,
                         click_action: payload.notification.click_action
                     };
-                    var openLink = payload.data.hub_link.open
-                    var delivLink = payload.data.hub_link.ack
+                    var openLink = JSON.parse(payload.data.hub_link).open
+                    var delivLink = JSON.parse(payload.data.hub_link).ack
                     console.log("do open link")
                     fetch(openLink, {
                         method: 'get',
