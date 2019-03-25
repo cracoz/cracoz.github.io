@@ -2,17 +2,17 @@
     var injectedConfig = {
         debug: "true" === "true",
         isTest: "false" === "true",
-        resourceToken: "228SYMQZqd2-9ecd53637d12ed4b",
-        apiServerHost: "ssl.egor-bronin.dev.altkraft.com/pixel?_push_pix=",
+        resourceToken: "dBzGxCJvLwb-80f29b9aa63ad763",
+        apiServerHost: "ssl.egor-bronin.dev.altkraft.com",
         swPath: "/service-worker.js",
         firebase: {
-            apiKey: "",
-            projectId: "",
-            messagingSenderId: "",
+            apiKey: "AIzaSyCLQ_OuvTKdWvqEFz2lr0Or3hkuuElJFTY",
+            projectId: "testprojegor",
+            messagingSenderId: "1097077474911",
         },
         browsers: {
             "Chrome": {
-                isFirebase: "false" === "true"
+                isFirebase: "true" === "true"
             },
             "Firefox": {
                 isFirebase: "false" === "true"
@@ -29,7 +29,7 @@
 
     var config = {
         serverPrefix: "https://",
-        serverPushContentPath: "/push/content/get",
+        serverPushContentPath: "/pixel?" + ["_push_pix", "/push/content/get"].join("="),
         debug: false,
         browsers: {},
         firebase: {
@@ -143,7 +143,6 @@
                             });
                         });
                     }).catch(function(err) {
-			console.error("URL: ", config.serverURL + config.serverPushContentPath);
                         console.error("Unable to receive data from server", err);
                     })
                 })
@@ -153,7 +152,6 @@
 
     self.addEventListener('notificationclick', function(event) {
         debug("SW Click: ", event)
-        debug("Click URL: ", event.notification.data)
         if (event.notification.tag === 'user_visible_auto_notification' || !event.notification.data) {
             return;
         }

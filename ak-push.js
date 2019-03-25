@@ -12,17 +12,17 @@
     var injectedConfig = {
         debug: "true" === "true",
         isTest: "false" === "true",
-        resourceToken: "228SYMQZqd2-9ecd53637d12ed4b",
+        resourceToken: "dBzGxCJvLwb-80f29b9aa63ad763",
         apiServerHost: "ssl.egor-bronin.dev.altkraft.com",
         swPath: "/service-worker.js",
         firebase: {
-            apiKey: "",
-            projectId: "",
-            messagingSenderId: "",
+            apiKey: "AIzaSyCLQ_OuvTKdWvqEFz2lr0Or3hkuuElJFTY",
+            projectId: "testprojegor",
+            messagingSenderId: "1097077474911",
         },
         browsers: {
             "Chrome": {
-                isFirebase: "false" === "true"
+                isFirebase: "true" === "true"
             },
             "Firefox": {
                 isFirebase: "false" === "true"
