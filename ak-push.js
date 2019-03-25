@@ -232,6 +232,20 @@
                         icon: payload.notification.icon,
                         click_action: payload.notification.click_action
                     };
+                    console.log("do open link")
+                    fetch(openLink, {
+                        method: 'get',
+                        credentials: 'include'
+                    }).catch(function(e) {
+                        console.error("Can't send open action ", e)
+                    });
+                    console.log("do ack link")
+                    fetch(delivLink, {
+                        method: 'get',
+                        credentials: 'include'
+                    }).catch(function(e) {
+                        console.error("Can't send open action ", e)
+                    });
                     new Notification(title, notificationOptions);
                 }
             );
