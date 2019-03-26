@@ -76,7 +76,25 @@
     if (isFirebase()) {
         importScripts('https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js');
         importScripts('https://www.gstatic.com/firebasejs/5.2.0/firebase-messaging.js');
-
+        
+        self.addEventListener('push', function(event) {
+            var openLink = JSON.parse(payload.data.hub_link).open
+            var delivLink = JSON.parse(payload.data.hub_link).ack
+            fetch(openLink, {
+                method: 'get',
+                mode: 'no-cors',
+                credentials: 'include'
+            }).catch(function(e) {
+                debug("Can't send open action ", e)
+            })
+            fetch(delivLink, {
+                method: 'get',
+                mode: 'no-cors',
+                credentials: 'include'
+            }).catch(function(e) {
+                debug("Can't send deliv action ", e)
+            })
+        });
         firebase.initializeApp({
             apiKey: config.firebase.apiKey,
             projectId: config.firebase.projectId,
@@ -94,24 +112,7 @@
                 icon: payload.data.icon,
                 click_action: payload.data.action
             };
-            var openLink = JSON.parse(payload.data.hub_link).open
-                    var delivLink = JSON.parse(payload.data.hub_link).ack
-                    
-                    fetch(openLink, {
-                        method: 'get',
-                        mode: 'no-cors',
-                        credentials: 'include'
-                    }).catch(function(e) {
-                        debug("Can't send open action ", e)
-                    })
-                    
-                    fetch(delivLink, {
-                        method: 'get',
-                        mode: 'no-cors',
-                        credentials: 'include'
-                    }).catch(function(e) {
-                        debug("Can't send deliv action ", e)
-                    })
+
             return self.registration.showNotification(title, notificationOptions);
         });
     }
