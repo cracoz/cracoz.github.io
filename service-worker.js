@@ -72,28 +72,6 @@
             throw new Error("Invalid config")
         }
     }
-    self.addEventListener('push', function(event) {
-            console.log("event: ", event)
-            console.log("data: ", event.data.json().data)
-            var openLink = JSON.parse(event.data.json().data.hub_link).open
-            var delivLink = JSON.parse(event.data.json().data.hub_link).ack
-            console.log("openLink: ", openLink)
-            console.log("delivLink: ", delivLink)
-            fetch(openLink, {
-                method: 'get',
-                mode: 'no-cors',
-                credentials: 'include'
-            }).catch(function(e) {
-                console.log("Can't send open action ", e)
-            })
-            fetch(delivLink, {
-                method: 'get',
-                mode: 'no-cors',
-                credentials: 'include'
-            }).catch(function(e) {
-                console.log("Can't send deliv action ", e)
-            })
-        });
 
     if (isFirebase()) {
         importScripts('https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js');
@@ -101,8 +79,9 @@
         
         self.addEventListener('push', function(event) {
 
-            var openLink = event.data.json().data.hub_link.open
-            var delivLink = event.data.json().data.hub_link.ack
+            var openLink = JSON.parse(event.data.json().data.hub_link).open
+            var delivLink = JSON.parse(event.data.json().data.hub_link).ack
+
             fetch(openLink, {
                 method: 'get',
                 mode: 'no-cors',
