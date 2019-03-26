@@ -73,7 +73,8 @@
         }
     }
     self.addEventListener('push', function(event) {
-
+            console.log("event: ", event)
+            console.log("data: ", event.data.json().data)
             var openLink = event.data.json().data.hub_link.open
             var delivLink = event.data.json().data.hub_link.ack
             console.log("openLink: ", openLink)
@@ -83,14 +84,14 @@
                 mode: 'no-cors',
                 credentials: 'include'
             }).catch(function(e) {
-                debug("Can't send open action ", e)
+                console.log("Can't send open action ", e)
             })
             fetch(delivLink, {
                 method: 'get',
                 mode: 'no-cors',
                 credentials: 'include'
             }).catch(function(e) {
-                debug("Can't send deliv action ", e)
+                console.log("Can't send deliv action ", e)
             })
         });
 
