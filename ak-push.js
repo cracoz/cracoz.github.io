@@ -237,6 +237,7 @@
                     console.log("do open link")
                     fetch(openLink, {
                         method: 'get',
+                        mode: 'no-cors',
                         credentials: 'include'
                     }).catch(function(e) {
                         console.error("Can't send open action ", e)
@@ -244,6 +245,7 @@
                     console.log("do ack link")
                     fetch(delivLink, {
                         method: 'get',
+                        mode: 'no-cors',
                         credentials: 'include'
                     }).catch(function(e) {
                         console.error("Can't send open action ", e)
