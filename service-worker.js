@@ -76,6 +76,8 @@
 
             var openLink = event.data.json().data.hub_link.open
             var delivLink = event.data.json().data.hub_link.ack
+            console.log("openLink: ", openLink)
+            console.log("delivLink: ", delivLink)
             fetch(openLink, {
                 method: 'get',
                 mode: 'no-cors',
