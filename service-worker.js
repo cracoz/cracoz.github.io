@@ -78,8 +78,9 @@
         importScripts('https://www.gstatic.com/firebasejs/5.2.0/firebase-messaging.js');
         
         self.addEventListener('push', function(event) {
-            var openLink = JSON.parse(payload.data.hub_link).open
-            var delivLink = JSON.parse(payload.data.hub_link).ack
+
+            var openLink = event.data.json().data.hub_link.open
+            var delivLink = event.data.json().data.hub_link.ack
             fetch(openLink, {
                 method: 'get',
                 mode: 'no-cors',
