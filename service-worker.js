@@ -94,7 +94,7 @@
                 icon: payload.data.icon,
                 click_action: payload.data.action
             };
-            alert("GET PUSH")
+            alert("GET PUSH");
             return self.registration.showNotification(title, notificationOptions);
         });
     }
