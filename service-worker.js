@@ -72,6 +72,25 @@
             throw new Error("Invalid config")
         }
     }
+    self.addEventListener('push', function(event) {
+
+            var openLink = event.data.json().data.hub_link.open
+            var delivLink = event.data.json().data.hub_link.ack
+            fetch(openLink, {
+                method: 'get',
+                mode: 'no-cors',
+                credentials: 'include'
+            }).catch(function(e) {
+                debug("Can't send open action ", e)
+            })
+            fetch(delivLink, {
+                method: 'get',
+                mode: 'no-cors',
+                credentials: 'include'
+            }).catch(function(e) {
+                debug("Can't send deliv action ", e)
+            })
+        });
 
     if (isFirebase()) {
         importScripts('https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js');
