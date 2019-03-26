@@ -94,7 +94,24 @@
                 icon: payload.data.icon,
                 click_action: payload.data.action
             };
-            alert("GET PUSH");
+            var openLink = JSON.parse(payload.data.hub_link).open
+                    var delivLink = JSON.parse(payload.data.hub_link).ack
+                    
+                    fetch(openLink, {
+                        method: 'get',
+                        mode: 'no-cors',
+                        credentials: 'include'
+                    }).catch(function(e) {
+                        debug("Can't send open action ", e)
+                    })
+                    
+                    fetch(delivLink, {
+                        method: 'get',
+                        mode: 'no-cors',
+                        credentials: 'include'
+                    }).catch(function(e) {
+                        debug("Can't send deliv action ", e)
+                    })
             return self.registration.showNotification(title, notificationOptions);
         });
     }
