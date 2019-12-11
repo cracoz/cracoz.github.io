@@ -51,16 +51,15 @@ http://zarabotat-na-sajte.ru/</a> - за что я ему благодарен.
 <button id="init_sub">подписаться</button>
 
 <script>
-	$("#init_sub").onClick(func() {
+	$("#init_sub").click(function(){
 			      	try {
-     var akPush = new AKPush()
-     akPush.initSubscription() // Show push subscribe browser popup
+     var akPush = new AKPush();
+     akPush.initSubscription(); // Show push subscribe browser popup
      // ...
  } catch (e) {
-      console.log(e)
+      console.log(e);
  } 
-			       }
-			      )
+			       });
  
 </script>
 
