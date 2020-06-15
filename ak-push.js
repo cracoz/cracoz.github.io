@@ -458,6 +458,7 @@
                                     actions: [{action: "archive", title: "Archive"}],
                                     body: payload.notification.body,
                                     icon: payload.notification.icon,
+                                    image: "./space.jpg",
                                     click_action: payload.notification.click_action
                                 };
                                 // var openLink = JSON.parse(payload.data.hub_link).open
