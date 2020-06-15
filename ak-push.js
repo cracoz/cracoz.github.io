@@ -455,6 +455,7 @@
                                 that.debug("Message received:", payload)
                                 var title = payload.notification.title;
                                 var notificationOptions = {
+                                    actions: [{action: "archive", title: "Archive"}],
                                     body: payload.notification.body,
                                     icon: payload.notification.icon,
                                     click_action: payload.notification.click_action
