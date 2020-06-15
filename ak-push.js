@@ -17,62 +17,6 @@
         document.head.appendChild(s);
     });
 
-    if (this.isSWorker()) {
-        navigator.serviceWorker.getRegistration().then(function(registration) {
-            if(registration){
-                console.log('ServiceWorkerRegistration found.');
-                if (this.isFirebase()) {
-                    if (!this.isFirebaseLib()) {
-                        console.error("Firebase library not found!");
-                        return
-                    }
-                    firebase.initializeApp({
-                        apiKey: this.config.firebase.apiKey,
-                        projectId: this.config.firebase.projectId,
-                        messagingSenderId: this.config.firebase.messagingSenderId,
-                        storageBucket: [this.config.firebase.projectId, this.config.firebase.bucketSubdomain].join("."),
-                        authDomain: [this.config.firebase.projectId, this.config.firebase.authSubdomain].join("."),
-                        databaseURL: [this.config.firebase.projectId, this.config.firebase.dbSubdomain].join("."),
-                    });
-                    firebase.messaging().useServiceWorker(registration);
-                    firebase.messaging().onMessage(
-                        function(payload) {
-                            that.debug("Message received:", payload)
-                            var title = payload.notification.title;
-                            var notificationOptions = {
-                                body: payload.notification.body,
-                                icon: payload.notification.icon,
-                                click_action: payload.notification.click_action
-                            };
-                            // var openLink = JSON.parse(payload.data.hub_link).open
-                            // var delivLink = JSON.parse(payload.data.hub_link).ack
-                            // console.log("do open link")
-                            // fetch(openLink, {
-                            //     method: 'get',
-                            //     mode: 'no-cors',
-                            //     credentials: 'include'
-                            // }).catch(function(e) {
-                            //     console.error("Can't send open action ", e)
-                            // })
-                            // console.log("do ack link")
-                            // fetch(delivLink, {
-                            //     method: 'get',
-                            //     mode: 'no-cors',
-                            //     credentials: 'include'
-                            // }).catch(function(e) {
-                            //     console.error("Can't send deliv action ", e)
-                            // })
-                            showNotification(title, notificationOptions);
-                            //new Notification(title, notificationOptions);
-                        }
-                    );
-                }
-            } else {
-              console.log('ServiceWorkerRegistration not found.');
-            }
-        });
-    }
-
     var injectedConfig = {
         debug: "true" === "true",
         isTest: "false" === "true",
@@ -467,6 +411,62 @@
                 });
             }
         };
+        
+        if (this.isSWorker()) {
+        navigator.serviceWorker.getRegistration().then(function(registration) {
+            if(registration){
+                console.log('ServiceWorkerRegistration found.');
+                if (this.isFirebase()) {
+                    if (!this.isFirebaseLib()) {
+                        console.error("Firebase library not found!");
+                        return
+                    }
+                    firebase.initializeApp({
+                        apiKey: this.config.firebase.apiKey,
+                        projectId: this.config.firebase.projectId,
+                        messagingSenderId: this.config.firebase.messagingSenderId,
+                        storageBucket: [this.config.firebase.projectId, this.config.firebase.bucketSubdomain].join("."),
+                        authDomain: [this.config.firebase.projectId, this.config.firebase.authSubdomain].join("."),
+                        databaseURL: [this.config.firebase.projectId, this.config.firebase.dbSubdomain].join("."),
+                    });
+                    firebase.messaging().useServiceWorker(registration);
+                    firebase.messaging().onMessage(
+                        function(payload) {
+                            that.debug("Message received:", payload)
+                            var title = payload.notification.title;
+                            var notificationOptions = {
+                                body: payload.notification.body,
+                                icon: payload.notification.icon,
+                                click_action: payload.notification.click_action
+                            };
+                            // var openLink = JSON.parse(payload.data.hub_link).open
+                            // var delivLink = JSON.parse(payload.data.hub_link).ack
+                            // console.log("do open link")
+                            // fetch(openLink, {
+                            //     method: 'get',
+                            //     mode: 'no-cors',
+                            //     credentials: 'include'
+                            // }).catch(function(e) {
+                            //     console.error("Can't send open action ", e)
+                            // })
+                            // console.log("do ack link")
+                            // fetch(delivLink, {
+                            //     method: 'get',
+                            //     mode: 'no-cors',
+                            //     credentials: 'include'
+                            // }).catch(function(e) {
+                            //     console.error("Can't send deliv action ", e)
+                            // })
+                            showNotification(title, notificationOptions);
+                            //new Notification(title, notificationOptions);
+                        }
+                    );
+                }
+            } else {
+              console.log('ServiceWorkerRegistration not found.');
+            }
+        });
+    }
     }
 
     if (typeof(window.AKPush) === 'undefined') {
