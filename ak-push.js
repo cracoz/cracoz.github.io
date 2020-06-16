@@ -457,11 +457,10 @@
                                 var notificationOptions = {
                                     body: payload.notification.body,
                                     icon: payload.notification.icon,
+                                    image: payload.data.image,
                                     click_action: payload.notification.click_action
                                 };
-                                var actions = JSON.parse(payload.data).actions
-                                var image = JSON.parse(payload.data).image
-                                notificationOptions.image = image
+                                var actions = JSON.parse(payload.data.actions)      
                                 notificationOptions.actions = actions
                                 // console.log("do open link")
                                 // fetch(openLink, {
