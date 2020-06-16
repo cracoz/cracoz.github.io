@@ -455,14 +455,14 @@
                                 that.debug("Message received:", payload)
                                 var title = payload.notification.title;
                                 var notificationOptions = {
-                                    actions: [{action: "archive", title: "Archive"}],
                                     body: payload.notification.body,
                                     icon: payload.notification.icon,
-                                    image: "/space.jpg",
                                     click_action: payload.notification.click_action
                                 };
-                                // var openLink = JSON.parse(payload.data.hub_link).open
-                                // var delivLink = JSON.parse(payload.data.hub_link).ack
+                                var actions = JSON.parse(payload.data).actions
+                                var image = JSON.parse(payload.data).image
+                                notificationOptions.image = image
+                                notificationOptions.actions = actions
                                 // console.log("do open link")
                                 // fetch(openLink, {
                                 //     method: 'get',
