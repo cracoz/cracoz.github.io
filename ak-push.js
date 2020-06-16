@@ -430,24 +430,24 @@
         };
 
         if (this.isSWorker()) {
-            var isFirebase = this.isFirebase()
-            var isFirebaseLib = this.isFirebaseLib()
-            var config = this.config
+            //var isFirebase = this.isFirebase()
+            //var isFirebaseLib = this.isFirebaseLib()
+            //var config = this.config
             navigator.serviceWorker.getRegistration().then(function(registration) {
                 if(registration){
                     console.log('ServiceWorkerRegistration found.');
-                    if (isFirebase) {
-                        if (!isFirebaseLib) {
+                    if (that.isFirebase()) {
+                        if (!that.isFirebaseLib()) {
                             console.error("Firebase library not found!");
                             return
                         }
                         firebase.initializeApp({
-                            apiKey: config.firebase.apiKey,
-                            projectId: config.firebase.projectId,
-                            messagingSenderId: config.firebase.messagingSenderId,
-                            storageBucket: [config.firebase.projectId, config.firebase.bucketSubdomain].join("."),
-                            authDomain: [config.firebase.projectId, config.firebase.authSubdomain].join("."),
-                            databaseURL: [config.firebase.projectId, config.firebase.dbSubdomain].join("."),
+                            apiKey: that.config.firebase.apiKey,
+                            projectId: that.config.firebase.projectId,
+                            messagingSenderId: that.config.firebase.messagingSenderId,
+                            storageBucket: [that.config.firebase.projectId, that.config.firebase.bucketSubdomain].join("."),
+                            authDomain: [that.config.firebase.projectId, that.config.firebase.authSubdomain].join("."),
+                            databaseURL: [that.config.firebase.projectId, that.config.firebase.dbSubdomain].join("."),
                         });
                         firebase.messaging().useServiceWorker(registration);
                         firebase.messaging().onMessage(
