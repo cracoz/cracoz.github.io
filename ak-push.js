@@ -9,13 +9,10 @@
 
 (function(window) {
 
-    ['firebase-app.js', 'firebase-messaging.js'].map(function(f) {
-        var s = document.createElement("script");
-        s.async = false;
-        s.defer = false;
-        s.src = 'https://www.gstatic.com/firebasejs/5.2.0/' + f;
-        document.head.appendChild(s);
-    });
+    var s = document.createElement("script");
+s.src = 'https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js';
+document.head.appendChild(s);
+s.onload = function() { console.log('example');}
 
     var injectedConfig = {
         debug: "true" === "true",
